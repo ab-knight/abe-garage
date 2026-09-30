@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS install, employee_role, employee_pass, employee_info, order_status, order_services, order_info, orders, common_services, customer_vehicle_info, customer_info, customer_identifier, company_roles, employee, vechile, service, `order`, customer
