@@ -15,12 +15,36 @@ router.get(
   vechileController.getVehiclesByCustomer
 )
 
+// Single vehicle — managers and admins
+router.get(
+  '/vehicle/:id',
+  verifyToken,
+  isManagerOrAdmin,
+  vechileController.getVehicleById
+)
+
 // Add a vehicle — managers and admins
 router.post(
   '/vehicle',
   verifyToken,
   isManagerOrAdmin,
   vechileController.createVehicle
+)
+
+// Update vehicle — managers and admins
+router.put(
+  '/vehicle',
+  verifyToken,
+  isManagerOrAdmin,
+  vechileController.updateVehicle
+)
+
+// Delete vehicle — managers and admins
+router.delete(
+  '/vehicle/:id',
+  verifyToken,
+  isManagerOrAdmin,
+  vechileController.deleteVehicle
 )
 
 export default router

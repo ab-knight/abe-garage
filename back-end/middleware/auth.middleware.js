@@ -1,5 +1,15 @@
 import 'dotenv/config'
 import jwt from 'jsonwebtoken'
+import rateLimit from 'express-rate-limit'
+
+// Rate limiter for login: 5 attempts per 15 minutes per IP
+export const loginRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5,
+  message: { error: 'Too many login attempts, please try again later' },
+  standardHeaders: true,
+  legacyHeaders: false,
+})
 
 // Verify the JWT sent in the x-access-token header.
 // On success, attaches the decoded payload to req.employee.

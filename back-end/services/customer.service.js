@@ -143,3 +143,11 @@ export async function updateCustomer(data) {
     throw err
   }
 }
+
+export async function deleteCustomer(id) {
+  const [result] = await pool.query(
+    'DELETE FROM customer_identifier WHERE customer_id = ?',
+    [id]
+  )
+  return result.affectedRows
+}

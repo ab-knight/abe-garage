@@ -37,4 +37,12 @@ router.put(
   customerController.updateCustomer
 )
 
+// Delete — managers and admins
+router.delete(
+  '/customer/:id',
+  verifyToken,
+  isManagerOrAdmin,
+  customerController.deleteCustomer
+)
+
 export default router

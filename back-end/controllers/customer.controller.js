@@ -57,6 +57,19 @@ export async function createCustomer(req, res) {
   }
 }
 
+// DELETE /api/customer/:id
+export async function deleteCustomer(req, res) {
+  try {
+    const affected = await customerService.deleteCustomer(req.params.id)
+    if (affected === 0) {
+      return res.status(404).json({ error: 'Customer not found' })
+    }
+    res.status(200).json({ success: 'true' })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}
+
 // PUT /api/customer
 export async function updateCustomer(req, res) {
   try {

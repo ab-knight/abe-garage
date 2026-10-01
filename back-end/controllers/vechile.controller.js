@@ -19,3 +19,46 @@ export async function getVehiclesByCustomer(req, res) {
     res.status(500).json({ error: err.message })
   }
 }
+
+// GET /api/vehicle/:id
+export async function getVehicleById(req, res) {
+  try {
+    const vehicle = await vechileService.getVehicleById(req.params.id)
+    if (!vehicle) {
+      return res.status(404).json({ error: 'Vehicle not found' })
+    }
+    res.status(200).json(vehicle)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}
+
+// PUT /api/vehicle
+export async function updateVehicle(req, res) {
+  try {
+    const { id, ...data } = req.body
+    if (!id) {
+      return res.status(400).json({ error: 'vehicle_id is required' })
+    }
+    const affected = await vechileService.updateVehicle(id, data)
+    if (affected === 0) {
+      return res.status(404).json({ error: 'Vehicle not found' })
+    }
+    res.status(200).json({ success: 'true' })
+  } catch (err) {
+    res.status(400).json({ error: err.message })
+  }
+}
+
+// DELETE /api/vehicle/:id
+export async function deleteVehicle(req, res) {
+  try {
+    const affected = await vechileService.deleteVehicle(req.params.id)
+    if (affected === 0) {
+      return res.status(404).json({ error: 'Vehicle not found' })
+    }
+    res.status(200).json({ success: 'true' })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}
