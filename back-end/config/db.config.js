@@ -1,6 +1,6 @@
-import 'dotenv/config'
-
-import mysql from 'mysql2/promise'
+import "dotenv/config";
+import mysql from "mysql2/promise";
+import fs from "fs";
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -8,14 +8,19 @@ const pool = mysql.createPool({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 3306,
+
+  ssl: {
+    ca: fs.readFileSync(process.env.DB_CA_PATH),
+  },
+
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-})
+});
 
 export async function query(sql, params) {
-  const [rows] = await pool.query(sql, params)
-  return rows
+  const [rows] = await pool.query(sql, params);
+  return rows;
 }
 
-export default pool
+export default pool;
