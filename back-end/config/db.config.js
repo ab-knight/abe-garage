@@ -10,7 +10,9 @@ const pool = mysql.createPool({
   port: process.env.DB_PORT || 3306,
 
   ssl: {
-    ca: fs.readFileSync(process.env.DB_CA_PATH),
+    ca: process.env.DB_CA_BASE64
+      ? Buffer.from(process.env.DB_CA_BASE64, 'base64')
+      : fs.readFileSync(process.env.DB_CA_PATH),
   },
 
   waitForConnections: true,
